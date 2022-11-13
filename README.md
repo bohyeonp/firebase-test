@@ -13,19 +13,4 @@ $ npm install
 $ npm start
 ```
 # Boso React SNS
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# boso-react-sns
-# react-sns
-# react-sns
-# react-sns
-# react-sns
+
