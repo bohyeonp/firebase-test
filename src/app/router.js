@@ -1,11 +1,28 @@
+import Login from "../pages/Login"
 import Join from "../pages/Join";
+import Main from "../pages/Main"
+import Mypage from "../pages/Mypage";
 
 const RouteList = [
     {
         path : '/',
-        element :  <Join/>
+        element :  <Login/>
     },
-
+    {
+        path : '/join',
+        element :  <Join/>
+    }
 ]
 
-export default RouteList;
+const AuthRouteList = [
+    {
+        path : '/main',
+        element :  <Main/>
+    },
+    {
+        path : '/my-page',
+        element :  <Mypage/>
+    }
+]
+
+export {RouteList, AuthRouteList};
