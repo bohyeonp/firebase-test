@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
-import Default from '../components/modal/Default'
-import Confirm from '../components/modal/Confirm'
+import Default from "../../components/modal/Default";
+import Confirm from '../../components/modal/Confirm'
 import { Button, Form, Input, Radio, Collapse, Checkbox } from 'antd';
-import {firestore} from "../firebase/Firebase"
-import {checkPhoneNumber, checkPassword, checkBirth, checkName} from '../utils/utilCommon';
+import {auth, firestore} from "../../firebase/Firebase"
+import {checkPhoneNumber, checkPassword, checkBirth, checkName} from '../../utils/utilCommon';
+import {createUserWithEmailAndPassword} from "firebase/auth";
 const { Panel } = Collapse;
 
 
 /* eslint-enable no-template-curly-in-string */
 
-const Join = () => {
+const Detail = () => {
     const [onModalDefault, setOnModalDefault] = useState({show : false, type : ""});
     const [onModalConfirm, setOnModalConfirm] = useState({show : false, type : ""});
-    const [id , setId] = useState("");
 
     const layout = {
         labelCol: {
@@ -24,7 +24,7 @@ const Join = () => {
     };
 
     useEffect(()=> {
-        console.log("JOIN PAGE")
+        console.log("가입 상세")
     },[]);
 
     const genExtra = (key) => {
@@ -74,93 +74,38 @@ const Join = () => {
 
     const onFinish = (values) => {
         const user = firestore.collection("user");
-        user.get().then((doc) => {
-            let duplication = false
-            const document = []
-            doc.forEach((doc)=>{
-                document.push(doc.data())
+        createUserWithEmailAndPassword(auth, values.user.email, values.user.password)
+            .then((userCredential) => {
+                const userInfo = userCredential.user;
+                user.doc(userInfo.uid).set({
+                    ...values.user,
+                    photoURL : "https://cdn.pixabay.com/photo/2021/02/12/07/03/icon-6007530_1280.png"
+                });
             })
-            for(let i=0; i<document.length; i++){
-                if(document[i].id === values.user.id) {
-                    duplication = true
-                    break;
+            .catch((error) => {
+                console.error('이메일 가입시 에러 : ', error);
+                switch(error.code){
+                    case "auth/email-already-in-use":
+                        setOnModalDefault({show: true, type: "email-already-in-use"})
+                        break;
+                    case "auth/weak-password":
+                        setOnModalDefault({show: true, type: "weak-password"})
+                        break;
+                    default:
+                        setOnModalDefault({show: true, type: "join-fail"})
+                        break;
                 }
-            }
-            if(duplication) setOnModalDefault({show: true, type: "join-fail"})
-            else {
-                setOnModalConfirm({show: true, type: "join-success"})
-                user.doc(values.user.id).set(values.user);
-            }
-        });
+            });
     };
 
-    const checkId = () => {
-        const user = firestore.collection("user");
-        user.get().then((doc) => {
-            let duplication = false
-            const document = []
-            doc.forEach((doc)=>{
-                document.push(doc.data())
-            })
-            for(let i=0; i<document.length; i++){
-                if(document[i].id === id) {
-                    duplication = true
-                    break;
-                }
-            }
-            if(duplication) setOnModalDefault({show: true, type: "id-not-available"})
-            else setOnModalDefault({show: true, type: "id-available"})
-        });
-    }
-
-    const changeId = (e) => {
-        setId(e.target.value)
-    }
-
     return (
-        <Form {...layout} style={{maxWidth: '800px', margin: '0 auto', paddingTop: '40px'}} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-            <Form.Item
-                name={['user', 'id']}
-                label="ID"
-                rules={[
-                    {
-                        required: true,
-
-                    },
-                ]}
-            >
-                <div style={{display : "flex"}}>
-                    <Input placeholder="아이디를 입력해주세요." onChange={changeId}/>
-                    <Button disabled={id === ""} onClick={checkId}>중복체크</Button>
-                </div>
-            </Form.Item>
-            <Form.Item
-                name={['user', 'password']}
-                label="Password"
-                rules={[
-                    {
-                        required: true
-                    },
-                    {
-                        validator: validatePassword,
-                        message: "최소 10자리 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 조합"
-                    }
-                ]}
-            >
-                <Input placeholder="비밀번호를 입력해주세요." />
-            </Form.Item>
-            <Form.Item
-                name={['user', 'email']}
-                label="Email"
-                rules={[
-                    {
-                        type: 'email',
-                        required: true,
-                    },
-                ]}
-            >
-                <Input placeholder="이메일을 입력해주세요."/>
-            </Form.Item>
+        <Form
+            {...layout}
+            style={{maxWidth: '800px', margin: '0 auto', paddingTop: '40px'}}
+            name="nest-messages"
+            onFinish={onFinish}
+            validateMessages={validateMessages}
+        >
             <Form.Item
                 name={['user', 'name']}
                 label="Name"
@@ -175,6 +120,37 @@ const Join = () => {
                 ]}
             >
                 <Input placeholder="이름을 입력해주세요."/>
+            </Form.Item>
+            <Form.Item
+                name={['user', 'email']}
+                label="Email"
+                rules={[
+                    {
+                        type: 'email',
+                        required: true,
+                    },
+                ]}
+            >
+                <Input placeholder="이메일을 입력해주세요."/>
+            </Form.Item>
+            <Form.Item
+                name={['user', 'password']}
+                label="Password"
+                rules={[
+                    {
+                        required: true
+                    },
+                    {
+                        validator: validatePassword,
+                        message: "최소 10자리 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 조합"
+                    }
+                ]}
+            >
+                <Input
+                    placeholder="비밀번호를 입력해주세요."
+                    type="password"
+                    autoComplete="on"
+                />
             </Form.Item>
             <Form.Item
                 name={['user', 'birth']}
@@ -254,4 +230,4 @@ const Join = () => {
         </Form>
     )
 }
-export default Join;
+export default Detail;

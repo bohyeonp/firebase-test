@@ -10,7 +10,7 @@ const Mypage = () => {
     const [onModalConfirm, setOnModalConfirm] = useState({show : false, type : ""});
 
     useEffect(()=> {
-        console.log("MYPAGE PAGE")
+        console.log("마이")
     },[]);
 
     const editProfile = () => setOnModalConfirm({show: true, type: 'edit-profile'});
@@ -19,7 +19,7 @@ const Mypage = () => {
             <div style={{display : 'flex'}}>
                 <Avatar style={{margin : '20px'}} size={100} src={userProfile.photoURL}/>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                    <span>Name : {userProfile.displayName}</span>
+                    <span>Name : {userProfile.name}</span>
                     <span>Email : {userProfile.email}</span>
                     <Button onClick={editProfile}>프로필 편집</Button>
                 </div>

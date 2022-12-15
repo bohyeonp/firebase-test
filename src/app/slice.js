@@ -4,7 +4,7 @@ const userSlice = createSlice({
     name: "userInfo",
     initialState: {
         userProfile : {
-            displayName : "",
+            name : "",
             email : "",
             photoURL : ""
         },

@@ -9,7 +9,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {setIsLoggedIn, selectIsLoggedIn, setUserProfile} from "./app/slice";
 import {RouteList, AuthRouteList} from "./app/router";
 import {onAuthStateChanged,} from "firebase/auth";
-import {auth} from "./firebase/Firebase"
+import {firestore, auth} from "./firebase/Firebase"
 const {Content} = Layout;
 
 
@@ -18,12 +18,12 @@ const App = () => {
     const location = useLocation();
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const [init, setInit] = useState(false);
-    const showCommon = !["/", "/join"].includes(location.pathname) && isLoggedIn
+    const showCommon = !["/", "/join-detail", "/join-simple"].includes(location.pathname) && isLoggedIn
 
     useEffect(()=>{
         console.log("onAuthStateChanged")
-        onAuthStateChanged(auth, (user) => {
-            if(user) {
+        onAuthStateChanged(auth, (userInfo) => {
+            if(userInfo) {
                 // logged in
                 console.log("logged in")
                 dispatch(setIsLoggedIn(true));
@@ -32,11 +32,14 @@ const App = () => {
                 console.log("logged out")
                 dispatch(setIsLoggedIn(false));
             }
-            dispatch(setUserProfile({
-                displayName : user?.displayName || "",
-                email : user?.email || "",
-                photoURL : user?.photoURL || "",
-            }));
+            const user = firestore.collection("user");
+            user.get().then((doc) => {
+                doc.forEach((doc2)=>{
+                    if(doc2.id === userInfo?.uid){
+                        dispatch(setUserProfile(doc2.data()));
+                    }
+                })
+            });
             setInit(true)
         });
     },[]);

@@ -16,7 +16,7 @@ const Default = ({ onModalDefault , setOnModalDefault }) => {
             description : "사용 가능한 아이디입니다."
         },
         "join-fail" : {
-            description : "아이디 중복 체크가 필요합니다."
+            description : "회원가입을 실패했습니다."
         },
         "login-fail" : {
             description : "아이디 또는 비밀번호를 확인해주세요."

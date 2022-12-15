@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 const Main = () => {
     useEffect(()=> {
-        console.log("MAIN PAGE")
+        console.log("메인")
     },[]);
 
     return (

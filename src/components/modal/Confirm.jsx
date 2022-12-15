@@ -47,7 +47,7 @@ const Confirm = ({ onModalConfirm , setOnModalConfirm }) => {
                             name={['user', 'name']}
                             label="Name"
                         >
-                            <Input defaultValue={userProfile.displayName} />
+                            <Input defaultValue={userProfile.name} />
                         </Form.Item>
                         <Form.Item
                             name={['user', 'email']}
@@ -59,6 +59,18 @@ const Confirm = ({ onModalConfirm , setOnModalConfirm }) => {
                             ]}
                         >
                             <Input defaultValue={userProfile.email} />
+                        </Form.Item>
+                        <Form.Item
+                            name={['user', 'birth']}
+                            label="Birth"
+                        >
+                            <Input defaultValue={userProfile.birth} />
+                        </Form.Item>
+                        <Form.Item
+                            name={['user', 'phone']}
+                            label="Phone"
+                        >
+                            <Input defaultValue={userProfile.phone} />
                         </Form.Item>
                     </Form>
                 </>
