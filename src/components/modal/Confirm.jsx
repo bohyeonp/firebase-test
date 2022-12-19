@@ -1,26 +1,20 @@
 import React from 'react';
 import {Button, Modal, Form, Input, Upload} from "antd";
-import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {setModalConfirm, selectModalConfirm} from "../../app/slice";
+import {useDispatch, useSelector} from "react-redux";
 import {selectUserProfile} from "../../app/slice";
 
-const Confirm = ({ onModalConfirm , setOnModalConfirm }) => {
+const Confirm = () => {
+    const dispatch = useDispatch();
+    const modalConfirm = useSelector(selectModalConfirm);
     const userProfile = useSelector(selectUserProfile);
-    const {show, type} = onModalConfirm;
-    const navigate = useNavigate();
+    const {show, type} = modalConfirm;
+
     const handleCancel = () => {
-        setOnModalConfirm({show : false, type : ""});
+        dispatch(setModalConfirm({show : false, type : ""}));
     };
+
     const modal = {
-        "join-success" : {
-            title : "알림",
-            closable : false,
-            body : (<p>회원가입이 완료되었습니다.</p>),
-            okEvent : () => {
-                handleCancel();
-                navigate("/");
-            }
-        },
         "edit-profile" : {
             title : "프로필 편집",
             body : (
