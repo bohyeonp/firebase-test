@@ -1,15 +1,9 @@
-import React, {useEffect, useState} from "react";
-import Default from '../../components/modal/Default'
+import React, {useEffect} from "react";
 import { Button, Form, Input } from 'antd';
-import {auth, firestore} from "../../firebase/Firebase"
 import {checkPassword, checkName} from '../../utils/utilCommon';
-import {createUserWithEmailAndPassword} from "firebase/auth";
-
-/* eslint-enable no-template-curly-in-string */
+import {createUserWithEmailAndPasswordApi} from "../../api/adaptor.api";
 
 const Simple = () => {
-    const [onModalDefault, setOnModalDefault] = useState({show : false, type : ""});
-
     const layout = {
         labelCol: {
             span: 4,
@@ -47,27 +41,7 @@ const Simple = () => {
     }
 
     const register = async (values) => {
-        const user = firestore.collection("user");
-        createUserWithEmailAndPassword(auth, values.email, values.password)
-            .then((userCredential) => {
-                const userInfo = userCredential.user;
-                user.doc(userInfo.uid).set({
-                    email : values.email,
-                    name : values.name,
-                    photoURL : "https://cdn.pixabay.com/photo/2021/02/12/07/03/icon-6007530_1280.png"
-                });
-            })
-            .catch((error) => {
-                console.error('이메일 가입시 에러 : ', error);
-                switch(error.code){
-                    case "auth/email-already-in-use":
-                        setOnModalDefault({show: true, type: "email-already-in-use"})
-                        break;
-                    case "auth/weak-password":
-                        setOnModalDefault({show: true, type: "weak-password"})
-                        break;
-                }
-            });
+        createUserWithEmailAndPasswordApi(values)
     };
 
     return (
@@ -83,7 +57,7 @@ const Simple = () => {
             validateMessages={validateMessages}
         >
             <Form.Item
-                name="name"
+                name={['user', 'name']}
                 label="Name"
                 rules={[
                     {
@@ -98,7 +72,7 @@ const Simple = () => {
                 <Input placeholder="이름을 입력해주세요." />
             </Form.Item>
             <Form.Item
-                name="email"
+                name={['user', 'email']}
                 label="Email"
                 rules={[
                     {
@@ -110,7 +84,7 @@ const Simple = () => {
                 <Input placeholder="이메일을 입력해주세요" />
             </Form.Item>
             <Form.Item
-                name="password"
+                name={['user', 'password']}
                 label="Password"
                 rules={[
                     {
@@ -139,7 +113,6 @@ const Simple = () => {
                     CreateUser
                 </Button>
             </Form.Item>
-            {onModalDefault.show && <Default onModalDefault={onModalDefault} setOnModalDefault={setOnModalDefault}/>}
         </Form>
     )
 }

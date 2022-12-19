@@ -1,19 +1,10 @@
-import React, {useEffect, useState} from "react";
-import Default from "../../components/modal/Default";
-import Confirm from '../../components/modal/Confirm'
+import React, {useEffect} from "react";
 import { Button, Form, Input, Radio, Collapse, Checkbox } from 'antd';
-import {auth, firestore} from "../../firebase/Firebase"
+import {createUserWithEmailAndPasswordApi} from "../../api/adaptor.api";
 import {checkPhoneNumber, checkPassword, checkBirth, checkName} from '../../utils/utilCommon';
-import {createUserWithEmailAndPassword} from "firebase/auth";
 const { Panel } = Collapse;
 
-
-/* eslint-enable no-template-curly-in-string */
-
 const Detail = () => {
-    const [onModalDefault, setOnModalDefault] = useState({show : false, type : ""});
-    const [onModalConfirm, setOnModalConfirm] = useState({show : false, type : ""});
-
     const layout = {
         labelCol: {
             span: 4,
@@ -73,29 +64,7 @@ const Detail = () => {
     }
 
     const onFinish = (values) => {
-        const user = firestore.collection("user");
-        createUserWithEmailAndPassword(auth, values.user.email, values.user.password)
-            .then((userCredential) => {
-                const userInfo = userCredential.user;
-                user.doc(userInfo.uid).set({
-                    ...values.user,
-                    photoURL : "https://cdn.pixabay.com/photo/2021/02/12/07/03/icon-6007530_1280.png"
-                });
-            })
-            .catch((error) => {
-                console.error('이메일 가입시 에러 : ', error);
-                switch(error.code){
-                    case "auth/email-already-in-use":
-                        setOnModalDefault({show: true, type: "email-already-in-use"})
-                        break;
-                    case "auth/weak-password":
-                        setOnModalDefault({show: true, type: "weak-password"})
-                        break;
-                    default:
-                        setOnModalDefault({show: true, type: "join-fail"})
-                        break;
-                }
-            });
+        createUserWithEmailAndPasswordApi(values)
     };
 
     return (
@@ -225,8 +194,6 @@ const Detail = () => {
                     Join
                 </Button>
             </Form.Item>
-            {onModalDefault.show && <Default onModalDefault={onModalDefault} setOnModalDefault={setOnModalDefault}/>}
-            {onModalConfirm.show && <Confirm onModalConfirm={onModalConfirm} setOnModalConfirm={setOnModalConfirm}/>}
         </Form>
     )
 }
