@@ -3,11 +3,12 @@ import {Link} from "react-router-dom";
 import { LockOutlined, UserOutlined, GithubOutlined, GoogleOutlined, MailOutlined, UserAddOutlined, MessageOutlined, ReadOutlined} from '@ant-design/icons';
 import { Button, Form, Input, Avatar} from 'antd';
 import {auth} from "../firebase/Firebase"
-import Default from "../components/modal/Default";
+import {setModalDefault} from "../app/slice";
 import { signInWithEmailAndPassword} from "firebase/auth";
+import {useDispatch} from "react-redux";
 
 const Login = () => {
-    const [onModalDefault, setOnModalDefault] = useState({show : false, type : ""});
+    const dispatch = useDispatch();
     const layout = {
         labelCol: {
             span: 4,
@@ -29,7 +30,17 @@ const Login = () => {
                 values.password
             );
         } catch (error) {
-            console.log(error.message);
+            switch(error.code){
+                case "auth/user-not-found":
+                    dispatch(setModalDefault({show: true, type: "auth/user-not-found"}));
+                    break;
+                case "auth/wrong-password":
+                    dispatch(setModalDefault({show: true, type: "auth/wrong-password"}));
+                    break;
+                default:
+                    dispatch(setModalDefault({show: true, type: "login-fail"}));
+                    break;
+            }
         }
     };
 
@@ -78,15 +89,14 @@ const Login = () => {
                     </Button>
                 </Form.Item>
                 <div >
-                    <Link to={"/join-detail"}><Avatar style={{marginRight : '15px'}} size="large" icon={<UserAddOutlined />}/></Link>
-                    <Link to={"/join-simple"}><Avatar style={{marginRight : '15px'}} size="large" icon={<MailOutlined />}/></Link>
+                    <Link to={"/join/detail"}><Avatar style={{marginRight : '15px'}} size="large" icon={<UserAddOutlined />}/></Link>
+                    <Link to={"/join/simple"}><Avatar style={{marginRight : '15px'}} size="large" icon={<MailOutlined />}/></Link>
                     <Avatar style={{marginRight : '15px'}} size="large" icon={<GithubOutlined />}/>
                     <Avatar style={{marginRight : '15px'}} size="large" icon={<GoogleOutlined />}/>
                     <Avatar style={{marginRight : '15px'}} size="large" icon={<MessageOutlined />}/>
                     <Avatar size="large" icon={<ReadOutlined />}/>
                 </div>
             </Form>
-            {onModalDefault.show && <Default onModalDefault={onModalDefault} setOnModalDefault={setOnModalDefault}/>}
         </>
     )
 }

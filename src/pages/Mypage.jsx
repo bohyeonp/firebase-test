@@ -2,18 +2,18 @@ import React, {useState, useEffect} from "react";
 import {Tabs, Avatar, Button} from 'antd';
 import TextList from "../components/list/TextList";
 import {selectUserProfile} from "../app/slice";
-import {useSelector} from "react-redux";
-import Confirm from "../components/modal/Confirm";
+import {useDispatch, useSelector} from "react-redux";
+import {setModalConfirm} from "../app/slice";
 
 const Mypage = () => {
+    const dispatch = useDispatch();
     const userProfile = useSelector(selectUserProfile);
-    const [onModalConfirm, setOnModalConfirm] = useState({show : false, type : ""});
 
     useEffect(()=> {
         console.log("마이")
     },[]);
 
-    const editProfile = () => setOnModalConfirm({show: true, type: 'edit-profile'});
+    const editProfile = () => dispatch(setModalConfirm({show: true, type: 'edit-profile'}));
     return (
         <>
             <div style={{display : 'flex'}}>
@@ -52,7 +52,6 @@ const Mypage = () => {
                     }
                 ]}
             />
-            {onModalConfirm.show && <Confirm onModalConfirm={onModalConfirm} setOnModalConfirm={setOnModalConfirm}/>}
         </>
     )
 }
