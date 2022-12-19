@@ -63,8 +63,9 @@ const Login = () => {
                         name="email"
                         rules={[
                             {
+                                type: 'email',
                                 required: true,
-                                message: 'Please input your Email!',
+                                message: '이메일 형식에 맞게 작성해주세요.'
                             },
                         ]}
                     >

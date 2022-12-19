@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { Button, Form, Input, Radio, Collapse, Checkbox } from 'antd';
 import {createUserWithEmailAndPasswordApi} from "../../api/adaptor.api";
 import {checkPhoneNumber, checkPassword, checkBirth, checkName} from '../../utils/utilCommon';
+import {LockOutlined, MailOutlined, UserOutlined, PhoneOutlined, GiftOutlined} from "@ant-design/icons";
 const { Panel } = Collapse;
 
 const Detail = () => {
@@ -70,7 +71,7 @@ const Detail = () => {
     return (
         <Form
             {...layout}
-            style={{maxWidth: '800px', margin: '0 auto', paddingTop: '40px'}}
+            style={{maxWidth: '600px', margin: '0 auto', paddingTop: '40px'}}
             name="nest-messages"
             onFinish={onFinish}
             validateMessages={validateMessages}
@@ -88,7 +89,7 @@ const Detail = () => {
                     }
                 ]}
             >
-                <Input placeholder="이름을 입력해주세요."/>
+                <Input placeholder="이름을 입력해주세요." prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
             </Form.Item>
             <Form.Item
                 name={['user', 'email']}
@@ -97,10 +98,11 @@ const Detail = () => {
                     {
                         type: 'email',
                         required: true,
+                        message: '이메일 형식에 맞게 작성해주세요.'
                     },
                 ]}
             >
-                <Input placeholder="이메일을 입력해주세요."/>
+                <Input placeholder="이메일을 입력해주세요." prefix={<MailOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
             </Form.Item>
             <Form.Item
                 name={['user', 'password']}
@@ -115,10 +117,11 @@ const Detail = () => {
                     }
                 ]}
             >
-                <Input
+                <Input.Password
                     placeholder="비밀번호를 입력해주세요."
                     type="password"
                     autoComplete="on"
+                    prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}
                 />
             </Form.Item>
             <Form.Item
@@ -134,7 +137,7 @@ const Detail = () => {
                     }
                 ]}
             >
-                <Input placeholder="생년월일을 입력해주세요."/>
+                <Input placeholder="생년월일을 입력해주세요." prefix={<GiftOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
             </Form.Item>
             <Form.Item
                 name={['user', 'phone']}
@@ -145,11 +148,11 @@ const Detail = () => {
                     },
                     {
                         validator: validatePhone,
-                        message: '\'-\'빼고 숫자만 입력해주세요.'
+                        message: '숫자만 입력해주세요.'
                     }
                 ]}
             >
-                <Input placeholder="휴대폰 번호를 입력해주세요."/>
+                <Input placeholder="휴대폰 번호를 입력해주세요." prefix={<PhoneOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
             </Form.Item>
             <Form.Item
                 name={['user', 'agree']}
@@ -161,7 +164,7 @@ const Detail = () => {
                 ]}
             >
                 <Checkbox.Group>
-                    <Collapse accordion style={{width: '533px'}}>
+                    <Collapse accordion style={{width: '400px'}}>
                         <Panel showArrow={false} header="(필수) 개인회원 약관 동의" key="1" extra={genExtra("A")}>
                             <p>개인회원 약관 동의 상세</p>
                         </Panel>
@@ -186,8 +189,8 @@ const Detail = () => {
             <Form.Item
                 name="submit"
                 wrapperCol={{
-                    ...layout.wrapperCol,
-                    offset: 8,
+                    offset: 4,
+                    span: 16,
                 }}
             >
                 <Button type="primary" htmlType="submit">

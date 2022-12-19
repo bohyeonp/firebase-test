@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { Button, Form, Input } from 'antd';
 import {checkPassword, checkName} from '../../utils/utilCommon';
 import {createUserWithEmailAndPasswordApi} from "../../api/adaptor.api";
+import {LockOutlined, MailOutlined, UserOutlined} from "@ant-design/icons";
 
 const Simple = () => {
     const layout = {
@@ -47,7 +48,7 @@ const Simple = () => {
     return (
         <Form
             {...layout}
-            style={{maxWidth: '800px', margin: '0 auto', paddingTop: '40px'}}
+            style={{maxWidth: '600px', margin: '0 auto', paddingTop: '40px'}}
             name="normal_login"
             className="login-form"
             initialValues={{
@@ -69,7 +70,7 @@ const Simple = () => {
                     }
                 ]}
             >
-                <Input placeholder="이름을 입력해주세요." />
+                <Input placeholder="이름을 입력해주세요." prefix={<UserOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
             </Form.Item>
             <Form.Item
                 name={['user', 'email']}
@@ -78,10 +79,11 @@ const Simple = () => {
                     {
                         type : "email",
                         required: true,
+                        message: '이메일 형식에 맞게 작성해주세요.'
                     }
                 ]}
             >
-                <Input placeholder="이메일을 입력해주세요" />
+                <Input placeholder="이메일을 입력해주세요" prefix={<MailOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
             </Form.Item>
             <Form.Item
                 name={['user', 'password']}
@@ -96,17 +98,18 @@ const Simple = () => {
                     }
                 ]}
             >
-                <Input
+                <Input.Password
                     placeholder="비밀번호를 입력해주세요"
                     type="password"
                     autoComplete="on"
+                    prefix={<LockOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}
                 />
             </Form.Item>
             <Form.Item
                 name="submit"
                 wrapperCol={{
-                    ...layout.wrapperCol,
-                    offset: 8,
+                    offset: 4,
+                    span: 16,
                 }}
             >
                 <Button type="primary" htmlType="submit">
