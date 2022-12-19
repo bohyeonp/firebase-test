@@ -1,16 +1,20 @@
 import { createSlice} from "@reduxjs/toolkit";
 
-const userSlice = createSlice({
-    name: "userInfo",
+const commonSlice = createSlice({
+    name: "common",
     initialState: {
-        userProfile : {
-            name : "",
-            email : "",
-            photoURL : ""
-        },
+        modalDefault : {show : false, type : ""},
+        modalConfirm : {show : false, type : ""},
+        userProfile : {},
         isLoggedIn : false
     },
     reducers: {
+        setModalDefault : (state, action) => {
+            state.modalDefault = action.payload;
+        },
+        setModalConfirm : (state, action) => {
+            state.modalConfirm = action.payload;
+        },
         setUserProfile : (state, action) => {
             state.userProfile = action.payload;
         },
@@ -20,9 +24,11 @@ const userSlice = createSlice({
     }
 });
 
-export const {setUserProfile, setIsLoggedIn} = userSlice.actions;
+export const {setModalDefault, setModalConfirm, setUserProfile, setIsLoggedIn} = commonSlice.actions;
 
-export const selectUserProfile = state => state.userInfo.userProfile;
-export const selectIsLoggedIn = state => state.userInfo.isLoggedIn;
+export const selectModalDefault = state => state.common.modalDefault;
+export const selectModalConfirm = state => state.common.modalConfirm;
+export const selectUserProfile = state => state.common.userProfile;
+export const selectIsLoggedIn = state => state.common.isLoggedIn;
 
-export {userSlice};
+export {commonSlice};

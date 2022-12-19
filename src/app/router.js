@@ -1,6 +1,5 @@
 import Login from "../pages/Login"
-import Detail from "../pages/join/Detail";
-import Simple from "../pages/join/Simple";
+import Join from "../pages/Join";
 import Main from "../pages/Main"
 import Mypage from "../pages/Mypage";
 
@@ -10,12 +9,8 @@ const RouteList = [
         element :  <Login/>
     },
     {
-        path : '/join-detail',
-        element :  <Detail/>
-    },
-    {
-        path : '/join-simple',
-        element :  <Simple/>
+        path : '/join/:type',
+        element :  <Join/>
     }
 ]
 
