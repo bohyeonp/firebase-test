@@ -69,7 +69,7 @@ const Login = () => {
                             },
                         ]}
                     >
-                        <Input placeholder="이메일을 입력해주세요." prefix={<UserOutlined className="site-form-item-icon" style={{ color: 'rgba(0, 0, 0, 0.25)' }}/>}/>
+                        <Input placeholder="이메일을 입력해주세요." prefix={<MailOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>
                     </Form.Item>
                     <Form.Item
                         label="Password"
