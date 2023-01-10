@@ -1,0 +1,36 @@
+.radio-custom .ant-radio-wrapper {
+    border: 2px solid #ccc;
+    border-radius: 80px;
+    padding: 4px;
+    margin-top: 10px;
+}
+
+.radio-custom .ant-radio-wrapper-checked {
+    border: 2px solid blue;
+    border-radius: 80px;
+    padding: 4px;
+}
+
+.radio-custom .ant-radio-wrapper-checked-origin{
+    border: 2px solid black;
+    border-radius: 80px;
+    padding: 4px;
+}
+
+.radio-custom .ant-radio {
+    position: absolute;
+    left: -9999px;
+    overflow: hidden;
+}
+
+.radio-custom .ant-radio + * {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 80px;
+}
+
+.radio-custom img {
+    width: 80px;
+    height: 80px;
+}
