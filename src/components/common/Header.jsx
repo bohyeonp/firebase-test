@@ -39,6 +39,7 @@ function HeaderC(props) {
                         <Button
                             type="text"
                             icon={<SettingOutlined style={{ color: '#fff', fontSize: '24px' }} />}
+                            onClick={() => navigate('/setting')}
                         />
                         <Button
                             type="text"
