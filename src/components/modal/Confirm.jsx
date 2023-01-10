@@ -2,7 +2,6 @@ import React from 'react';
 import {Button, Modal} from "antd";
 import {setModalConfirm, selectModalConfirm} from "../../app/slice";
 import {useDispatch, useSelector} from "react-redux";
-import EditProfile from "./EditProfile";
 
 const Confirm = () => {
     const dispatch = useDispatch();
@@ -14,15 +13,9 @@ const Confirm = () => {
     };
 
     const modal = {
-        "edit-profile" : {
-            title : "프로필 편집",
-            body : (<EditProfile/>),
-            closable : false,
-            okEvent : () => {
-                handleCancel();
-            }
-        },
+
     }
+
     return (
         <Modal
             title={modal[type]?.title}

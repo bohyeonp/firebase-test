@@ -2,6 +2,7 @@ import React from 'react';
 import {Modal} from "antd";
 import {setModalDefault, selectModalDefault} from "../../app/slice";
 import {useDispatch, useSelector} from "react-redux";
+import EditProfile from "./EditProfile";
 
 const Default = () => {
     const dispatch = useDispatch();
@@ -15,22 +16,39 @@ const Default = () => {
 
     const modal = {
         "auth/user-not-found" : {
-            description : "이메일을 확인해주세요."
+            body : "이메일을 확인해주세요."
         },
         "auth/wrong-password" : {
-            description : "비밀번호를 확인해주세요."
+            body : "비밀번호를 확인해주세요."
         },
         "login-fail" : {
-            description : "로그인을 실패했습니다."
+            body : "로그인을 실패했습니다."
         },
         "email-already-in-use" : {
-            description : "이미 사용중인 이메일 입니다."
-        },
-        "weak-password" : {
-            description : "비밀번호를 6자리 이상 필요합니다."
+            body : "이미 사용중인 이메일 입니다."
         },
         "join-fail" : {
-            description : "회원가입을 실패했습니다."
+            body : "회원가입을 실패했습니다."
+        },
+        "delete-fail" : {
+            body : "회원탈퇴를 실패했습니다."
+        },
+        "pw-update-success" : {
+            body : "비밀번호 업데이트에 성공했습니다."
+        },
+        "pw-update-fail" : {
+            body : "비밀번호 업데이트에 실패했습니다. 현재 비밀번호를 확인해주세요"
+        },
+        "profile-update-success" : {
+            body : "프로필 업데이트에 성공했습니다."
+        },
+        "edit-profile" : {
+            title : "프로필 편집",
+            body : (<EditProfile/>),
+            closable : false,
+            okEvent : () => {
+                handleCancel();
+            }
         },
     }
     return (
@@ -40,7 +58,7 @@ const Default = () => {
             footer={null}
             onCancel={handleCancel}
         >
-            <p>{modal[type]?.description}</p>
+            {modal[type]?.body}
         </Modal>
     )
 };
