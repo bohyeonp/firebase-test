@@ -96,10 +96,12 @@ const Detail = () => {
                 label="Email"
                 rules={[
                     {
-                        type: 'email',
                         required: true,
-                        message: '이메일 형식에 맞게 작성해주세요.'
                     },
+                    {
+                        type: 'email',
+                        message: '이메일 형식에 맞게 작성해주세요.'
+                    }
                 ]}
             >
                 <Input placeholder="이메일을 입력해주세요." prefix={<MailOutlined style={{ color: 'rgba(0, 0, 0, 0.25)' }} />}/>

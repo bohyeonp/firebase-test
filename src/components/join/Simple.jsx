@@ -77,8 +77,10 @@ const Simple = () => {
                 label="Email"
                 rules={[
                     {
-                        type : "email",
                         required: true,
+                    },
+                    {
+                        type: 'email',
                         message: '이메일 형식에 맞게 작성해주세요.'
                     }
                 ]}
