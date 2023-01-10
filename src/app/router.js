@@ -2,6 +2,7 @@ import Login from "../pages/Login"
 import Join from "../pages/Join";
 import Main from "../pages/Main"
 import Mypage from "../pages/Mypage";
+import Setting from "../pages/Setting";
 
 const RouteList = [
     {
@@ -22,6 +23,10 @@ const AuthRouteList = [
     {
         path : '/my-page',
         element :  <Mypage/>
+    },
+    {
+        path : '/setting',
+        element :  <Setting/>
     }
 ]
 
