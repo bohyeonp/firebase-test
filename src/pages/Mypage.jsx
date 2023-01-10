@@ -3,7 +3,7 @@ import {Tabs, Avatar, Button} from 'antd';
 import TextList from "../components/list/TextList";
 import {selectUserProfile} from "../app/slice";
 import {useDispatch, useSelector} from "react-redux";
-import {setModalConfirm} from "../app/slice";
+import {setModalDefault} from "../app/slice";
 
 const Mypage = () => {
     const dispatch = useDispatch();
@@ -13,11 +13,11 @@ const Mypage = () => {
         console.log("마이")
     },[]);
 
-    const editProfile = () => dispatch(setModalConfirm({show: true, type: 'edit-profile'}));
+    const editProfile = () => dispatch(setModalDefault({show: true, type: 'edit-profile'}));
     return (
         <>
             <div style={{display : 'flex'}}>
-                <Avatar style={{margin : '20px'}} size={100} src={userProfile.photoURL}/>
+                <Avatar style={{margin : '20px'}} size={100} src={require(`../assets/images/photo_${userProfile.photoNum || "0" }.png`)}/>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <span>Name : {userProfile.name}</span>
                     <span>Email : {userProfile.email}</span>
