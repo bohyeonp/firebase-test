@@ -12,6 +12,7 @@ import {selectModalConfirm, selectModalDefault, selectIsLoggedIn, setIsLoggedIn,
 import {onAuthStateChanged,} from "firebase/auth";
 import {firestore, auth} from "./firebase/Firebase"
 import {Layout} from 'antd';
+import {reProfileApi} from "./api/adaptor.api";
 const {Content} = Layout;
 
 const App = () => {
@@ -33,14 +34,7 @@ const App = () => {
                 console.log("logged out")
                 dispatch(setIsLoggedIn(false));
             }
-            const user = firestore.collection("user");
-            user.get().then((doc) => {
-                doc.forEach((doc2)=>{
-                    if(doc2.id === userInfo?.uid){
-                        dispatch(setUserProfile(doc2.data()));
-                    }
-                })
-            });
+            reProfileApi(userInfo?.uid);
             setInit(true)
         });
     },[]);
