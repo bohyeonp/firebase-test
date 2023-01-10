@@ -6,11 +6,11 @@ import {LockOutlined} from "@ant-design/icons";
 
 const Setting = () => {
     const layout = {
-        labelcol: {
-            span: 4,
+        labelCol: {
+            span: 9,
         },
         wrapperCol: {
-            span: 16,
+            span: 10,
         },
     };
 
@@ -37,10 +37,6 @@ const Setting = () => {
         updatePasswordApi(values.password)
     };
 
-    const deleteApi = async () => {
-        deleteUserApi()
-    };
-
     return (
         <Tabs
             size="large"
@@ -53,7 +49,7 @@ const Setting = () => {
                     key: '1',
                     children: <Form
                         {...layout}
-                        style={{maxWidth: '600px', margin: '0 auto', paddingTop: '40px'}}
+                        style={{maxWidth: '600px', margin: '0 auto'}}
                         name="normal_login"
                         className="login-form"
                         initialValues={{
@@ -105,8 +101,8 @@ const Setting = () => {
                         <Form.Item
                             name="submit"
                             wrapperCol={{
-                                offset: 4,
-                                span: 16,
+                                offset: 9,
+                                span: 10,
                             }}
                         >
                             <Button type="primary" htmlType="submit">
@@ -118,9 +114,10 @@ const Setting = () => {
                 {
                     label: `회원 탈퇴`,
                     key: '2',
-                    children: <div style={{maxWidth: '600px', margin: '0 auto', paddingTop: '40px'}}>
-                        <p>그 동안 BOSO를 이용해주신 회원님께 진심으로 감사드립니다. <br/> 더욱 발전하는 BOSO가 되겠습니다. <br/> 아래 회원 탈퇴 버튼을 누리시면 탈퇴 신청이 정상적으로 완료됩니다.</p>
-                        <Button type="primary" onClick={() => deleteApi()}>회원 탈퇴</Button>
+                    children: <div style={{display: 'grid', justifyContent: 'center'}}>
+                        <b > * 계정 삭제는 영구적입니다.</b> <br/>
+                        <p>그 동안 BOSO를 이용해주신 회원님께 진심으로 감사드립니다. <br/> 더욱 발전하는 BOSO가 되겠습니다. <br/> 아래 회원 탈퇴 버튼을 누르시면 탈퇴가 정상적으로 완료됩니다.</p> <br/>
+                        <Button type="primary" onClick={() => deleteUserApi()}>회원 탈퇴</Button>
                     </div>,
                 }
             ]}

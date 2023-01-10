@@ -73,9 +73,11 @@ export const updateProfileApi = (values) => {
         photoNum : photo,
         birth : birth || "",
         phone : phone || ""
+    }).then(() => {
+        store.dispatch(setModalDefault({show: true, type: "profile-update-success"}));
+        reProfileApi();
     });
-    store.dispatch(setModalDefault({show: true, type: "profile-update-success"}));
-    reProfileApi();
+
 };
 
 export const reProfileApi = (userId) => {
