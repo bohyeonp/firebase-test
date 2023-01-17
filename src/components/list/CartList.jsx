@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Table, Tag, Space} from "antd";
 
-const TextList = ({showImg}) => {
+const CartList = ({showImg}) => {
 
     useEffect(()=> {
-        console.log("TEXT LIST")
+        console.log("Cart List")
     },[]);
 
     const columns = [
@@ -92,4 +92,4 @@ const TextList = ({showImg}) => {
             showImg ? columns : columns.filter(obj => obj.title !== 'Image')} dataSource={data} pagination={false}/>
     )
 };
-export default TextList;
+export default CartList;

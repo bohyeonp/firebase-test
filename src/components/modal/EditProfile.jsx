@@ -113,7 +113,7 @@ const EditProfile = () => {
                     <Radio.Group className="radio-custom">
                         {
                             imageArray.map((item, index) => (
-                                <Radio value={item} key={index} className={item === userProfile.photoNum && "ant-radio-wrapper-checked-origin"}> <img src={require(`../../assets/images/photo_${index}.png`)} alt=""/> </Radio>
+                                <Radio value={item} key={index} > <img src={require(`../../assets/images/photo_${index}.png`)} alt=""/> </Radio>
                             ))
                         }
                     </Radio.Group>

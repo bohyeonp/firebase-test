@@ -4,13 +4,15 @@ import {firestore} from "../../firebase/Firebase";
 const { Footer } = Layout;
 
 const contentStyle = {
-    height: '160px',
+    height: '140px',
 };
 
 const imageStyle = {
     width:'100%',
     height:'100%',
-    objectFit:'cover'
+    objectFit:'cover',
+    borderRadius: '10px'
+
 };
 
 function FooterC(props) {
@@ -43,7 +45,7 @@ function FooterC(props) {
         >
             <Carousel autoplay effect="fade" autoplaySpeed={10000}>
                 {banner.map((image, index) => (
-                    <div key={index}>
+                    <div key={index} >
                         <h3 style={contentStyle}>
                             <img
                                 style={imageStyle}

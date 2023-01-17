@@ -49,6 +49,7 @@ function HeaderC(props) {
                         <Button
                             type="text"
                             icon={<ShoppingCartOutlined style={{ color: '#fff', fontSize: '24px' }} />}
+                            onClick={() => navigate('/cart')}
                         />
                         <Button
                             type="text"

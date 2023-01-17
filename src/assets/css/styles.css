@@ -1,3 +1,17 @@
+.image_list:hover{
+    border: 1px dashed #001529;
+    cursor: pointer;
+}
+
+.upload_btn{
+    border: 1px dashed #d9d9d9;
+}
+
+.upload_btn:hover{
+    border: 1px dashed #001529;
+    cursor: pointer;
+}
+
 .radio-custom .ant-radio-wrapper {
     border: 2px solid #ccc;
     border-radius: 80px;
@@ -6,13 +20,7 @@
 }
 
 .radio-custom .ant-radio-wrapper-checked {
-    border: 2px solid blue;
-    border-radius: 80px;
-    padding: 4px;
-}
-
-.radio-custom .ant-radio-wrapper-checked-origin{
-    border: 2px solid black;
+    border: 2px solid #001529;
     border-radius: 80px;
     padding: 4px;
 }

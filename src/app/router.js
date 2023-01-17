@@ -3,6 +3,8 @@ import Join from "../pages/Join";
 import Main from "../pages/Main"
 import Mypage from "../pages/Mypage";
 import Setting from "../pages/Setting";
+import Cart from "../pages/Cart";
+import Detail from "../pages/Detail";
 
 const RouteList = [
     {
@@ -27,6 +29,14 @@ const AuthRouteList = [
     {
         path : '/setting',
         element :  <Setting/>
+    },
+    {
+        path : '/cart',
+        element :  <Cart/>
+    },
+    {
+        path : '/detail/:id',
+        element :  <Detail/>
     }
 ]
 

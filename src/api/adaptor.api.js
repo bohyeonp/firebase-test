@@ -1,5 +1,5 @@
 import store from "../app/store";
-import {setModalDefault, setUserProfile} from "../app/slice";
+import {setImageList, setModalDefault, setUserProfile} from "../app/slice";
 import {auth, firestore} from "../firebase/Firebase";
 import {createUserWithEmailAndPassword, deleteUser, EmailAuthProvider, updatePassword, reauthenticateWithCredential} from "firebase/auth";
 
@@ -28,7 +28,7 @@ export const createUserWithEmailAndPasswordApi = (values) => {
 };
 
 export const deleteUserApi = () => {
-    const uid = store.getState().common.userProfile.uid;
+    const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
     deleteUser(auth.currentUser).then(() => {
         user.doc(uid).delete();
@@ -38,13 +38,13 @@ export const deleteUserApi = () => {
 };
 
 export const updatePasswordApi = (password) => {
-    const userProfile = store.getState().common.userProfile
+    const userProfile = store.getState().user.userProfile
     const credential = EmailAuthProvider.credential(
         userProfile.email,
         password.current
     );
     console.log(credential)
-    const uid = store.getState().common.userProfile.uid;
+    const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
     updatePassword(auth.currentUser, password.new).then(() => {
         console.log("비밀번호 변경 성공")
@@ -59,13 +59,12 @@ export const updatePasswordApi = (password) => {
             console.log("사용자 재인증 실패")
             store.dispatch(setModalDefault({show: true, type: "pw-update-fail"}));
         });
-
     });
 };
 
 export const updateProfileApi = (values) => {
     const {name, email, photo, birth, phone} = values.user;
-    const uid = store.getState().common.userProfile.uid;
+    const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
     user.doc(uid).update({
         name : name,
@@ -82,12 +81,23 @@ export const updateProfileApi = (values) => {
 
 export const reProfileApi = (userId) => {
     const user = firestore.collection("user");
-    const uid = userId || store.getState().common.userProfile.uid;
+    const uid = userId || store.getState().user.userProfile.uid;
     user.get().then((doc) => {
         doc.forEach((doc2)=>{
             if(doc2.id === uid){
                 store.dispatch(setUserProfile({...doc2.data(), ...{uid : uid}}));
             }
         })
+    });
+};
+
+export const getPost = () => {
+    const post = firestore.collection("post");
+    let imageList = [];
+    post.get().then((doc) => {
+        doc.forEach((docs)=>{
+            imageList.push(docs.data())
+        })
+        store.dispatch(setImageList(imageList))
     });
 };
