@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Table, Tag, Space, Upload, Button, message} from "antd";
 import {PlusOutlined, UploadOutlined} from "@ant-design/icons";
-import {useSelector} from "react-redux";
-import {selectUserProfile} from "../../app/slice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectUserProfile, setModalDefault} from "../../app/slice";
 import {useNavigate} from "react-router-dom";
 
 const contentStyle = {
@@ -28,10 +28,11 @@ const imageStyle = {
 };
 
 const PostList = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const userProfile = useSelector(selectUserProfile);
     useEffect(()=> {
-        console.log("Post List")
+        console.log("포스트 리스트")
     },[]);
 
     const [imageUrl, setImageUrl] = useState(userProfile.photoNum);
@@ -39,6 +40,8 @@ const PostList = () => {
     useEffect(()=> {
         console.log("마이")
     },[]);
+
+    const uploadPost = () => dispatch(setModalDefault({show: true, type: 'upload-post'}));
 
     const getBase64 = (img, callback) => {
         const reader = new FileReader();
@@ -101,14 +104,14 @@ const PostList = () => {
                     {/*>*/}
                     {/*    <div>업로드</div>*/}
                     {/*</Upload>*/}
-                    <Upload {...props}>
+                    <div onClick={uploadPost}>
                         <Button icon={<UploadOutlined />}>UPLOAD</Button>
-                    </Upload>
+                    </div>
                 </div>
                 : (
                     <>
                         <div style={contentStyle}>
-                            <div style={uploadStyle}  className={"upload_btn"}>
+                            <div onClick={uploadPost} style={uploadStyle}  className={"upload_btn"}>
                                 <PlusOutlined style={{marginTop: '23%'}}/>
                                 <div style={{ marginTop: 8 }}>UPLOAD</div>
                             </div>
