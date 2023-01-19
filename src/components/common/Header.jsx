@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Layout,  Space, Button} from "antd";
 import {Link, useNavigate} from "react-router-dom";
 import {
@@ -12,12 +12,8 @@ import {signOut} from "firebase/auth";
 
 const { Header } = Layout;
 
-function HeaderC(props) {
+function HeaderC() {
     const navigate = useNavigate();
-
-    useEffect(()=> {
-        console.log("HEADER")
-    },[]);
 
     return (
         <Header
@@ -44,7 +40,7 @@ function HeaderC(props) {
                         <Button
                             type="text"
                             icon={<UserOutlined style={{ color: '#fff', fontSize: '24px' }} />}
-                            onClick={() => navigate('/my-page')}
+                            onClick={() => navigate('/my')}
                         />
                         <Button
                             type="text"

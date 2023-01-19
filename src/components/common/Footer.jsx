@@ -15,12 +15,12 @@ const imageStyle = {
 
 };
 
-function FooterC(props) {
+function FooterC() {
     const [banner, setBanner] = useState([]);
 
-    useEffect(()=> {
-        console.log("FOOTER")
-    },[]);
+    useEffect(() => {
+        getBannerList();
+    }, []);
 
     const getBannerList = async () => {
         const banner = firestore.collection("banner");
@@ -31,18 +31,10 @@ function FooterC(props) {
             });
             setBanner(bannerList);
         });
-    }
-
-    useEffect(() => {
-        getBannerList();
-    }, []);
+    };
 
     return (
-        <Footer
-            style={{
-                textAlign: 'center',
-            }}
-        >
+        <Footer style={{textAlign: 'center',}}>
             <Carousel autoplay effect="fade" autoplaySpeed={10000}>
                 {banner.map((image, index) => (
                     <div key={index} >
