@@ -20,7 +20,6 @@ const commonSlice = createSlice({
     }
 });
 export const {setModalDefault, setModalConfirm, setIsLoggedIn} = commonSlice.actions;
-
 export const selectModalDefault = state => state.common.modalDefault;
 export const selectModalConfirm = state => state.common.modalConfirm;
 export const selectIsLoggedIn = state => state.common.isLoggedIn;
@@ -39,7 +38,6 @@ const userSlice = createSlice({
 });
 
 export const {setUserProfile} = userSlice.actions;
-
 export const selectUserProfile = state => state.user.userProfile;
 
 
@@ -56,7 +54,6 @@ const postSlice = createSlice({
 });
 
 export const {setImageList} = postSlice.actions;
-
 export const selectImageList = state => state.post.imageList;
 
 
