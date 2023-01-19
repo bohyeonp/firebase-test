@@ -112,7 +112,7 @@ const PostList = () => {
                     <>
                         <div style={contentStyle}>
                             <div onClick={uploadPost} style={uploadStyle}  className={"upload_btn"}>
-                                <PlusOutlined style={{marginTop: '23%'}}/>
+                                <PlusOutlined style={{marginTop: '20%'}}/>
                                 <div style={{ marginTop: 8 }}>UPLOAD</div>
                             </div>
                             {userProfile.list?.post.map((item, index) => (
