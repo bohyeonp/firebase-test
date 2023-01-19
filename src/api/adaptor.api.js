@@ -1,11 +1,12 @@
 import store from "../app/store";
-import {setImageList, setModalDefault, setUserProfile} from "../app/slice";
 import {auth, firestore} from "../firebase/Firebase";
+import {setImageList, setModalDefault, setUserProfile} from "../app/slice";
 import {createUserWithEmailAndPassword, deleteUser, EmailAuthProvider, updatePassword, reauthenticateWithCredential} from "firebase/auth";
 
 export const createUserWithEmailAndPasswordApi = (values) => {
     const {email, password} = values.user;
     const user = firestore.collection("user");
+
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const userInfo = userCredential.user;
@@ -30,6 +31,7 @@ export const createUserWithEmailAndPasswordApi = (values) => {
 export const deleteUserApi = () => {
     const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
+
     deleteUser(auth.currentUser).then(() => {
         user.doc(uid).delete();
     }).catch((error) => {
@@ -39,24 +41,17 @@ export const deleteUserApi = () => {
 
 export const updatePasswordApi = (password) => {
     const userProfile = store.getState().user.userProfile
-    const credential = EmailAuthProvider.credential(
-        userProfile.email,
-        password.current
-    );
-    console.log(credential)
     const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
+    const credential = EmailAuthProvider.credential(userProfile.email, password.current);
+
     updatePassword(auth.currentUser, password.new).then(() => {
-        console.log("비밀번호 변경 성공")
         user.doc(uid).update({ password : password.new});
         store.dispatch(setModalDefault({show: true, type: "pw-update-success"}));
     }).catch((error) => {
-        console.log("비밀번호 변경 실패")
         reauthenticateWithCredential(auth.currentUser, credential).then(() => {
-            console.log("사용자 재인증 성공")
             updatePasswordApi(password)
         }).catch((error) => {
-            console.log("사용자 재인증 실패")
             store.dispatch(setModalDefault({show: true, type: "pw-update-fail"}));
         });
     });
@@ -66,6 +61,7 @@ export const updateProfileApi = (values) => {
     const {name, email, photo, birth, phone} = values.user;
     const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
+
     user.doc(uid).update({
         name : name,
         //email: email,
@@ -76,12 +72,12 @@ export const updateProfileApi = (values) => {
         store.dispatch(setModalDefault({show: true, type: "profile-update-success"}));
         reProfileApi();
     });
-
 };
 
 export const reProfileApi = (userId) => {
     const user = firestore.collection("user");
     const uid = userId || store.getState().user.userProfile.uid;
+
     user.get().then((doc) => {
         doc.forEach((doc2)=>{
             if(doc2.id === uid){
@@ -91,13 +87,15 @@ export const reProfileApi = (userId) => {
     });
 };
 
-export const getPost = () => {
-    const post = firestore.collection("post");
+export const getPost = (params, callback) => {
     let imageList = [];
-    post.get().then((doc) => {
+    const post = firestore.collection("post");
+
+    return post.get().then((doc) => {
         doc.forEach((docs)=>{
             imageList.push(docs.data())
         })
         store.dispatch(setImageList(imageList))
+        callback("", true);
     });
 };
