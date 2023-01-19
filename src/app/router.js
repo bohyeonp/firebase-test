@@ -1,7 +1,7 @@
 import Login from "../pages/Login"
 import Join from "../pages/Join";
 import Main from "../pages/Main"
-import Mypage from "../pages/Mypage";
+import My from "../pages/My";
 import Setting from "../pages/Setting";
 import Cart from "../pages/Cart";
 import Detail from "../pages/Detail";
@@ -23,8 +23,8 @@ const AuthRouteList = [
         element :  <Main/>
     },
     {
-        path : '/my-page',
-        element :  <Mypage/>
+        path : '/my',
+        element :  <My/>
     },
     {
         path : '/setting',
