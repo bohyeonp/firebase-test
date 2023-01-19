@@ -3,6 +3,7 @@ import {Modal} from "antd";
 import {setModalDefault, selectModalDefault} from "../../app/slice";
 import {useDispatch, useSelector} from "react-redux";
 import EditProfile from "./EditProfile";
+import UploadPost from "./UploadPost";
 
 const Default = () => {
     const dispatch = useDispatch();
@@ -50,10 +51,18 @@ const Default = () => {
                 handleCancel();
             }
         },
+        "upload-post" : {
+            title : "포스트 업로드",
+            body : (<UploadPost/>),
+            closable : false,
+            okEvent : () => {
+                handleCancel();
+            }
+        },
     }
     return (
         <Modal
-            title="알림"
+            title={modal[type]?.title || "알림"}
             open={show}
             footer={null}
             onCancel={handleCancel}
