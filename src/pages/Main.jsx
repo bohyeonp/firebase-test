@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {getPost} from "../api/adaptor.api";
 import {selectImageList} from "../app/slice";
 import {useSelector} from "react-redux";
@@ -21,14 +21,17 @@ const imageStyle = {
 const Main = () => {
     const navigate = useNavigate();
     const imageList = useSelector(selectImageList);
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=> {
         console.log("메인")
-        getPost();
+        getPost({}, (err, res) => {
+            res && setLoading(true)
+        })
     },[]);
 
     return (
-        <div style={{
+        loading && <div style={{
             marginLeft : "8%",
             fontSize: '40px'}}
         >

@@ -6,7 +6,7 @@ import {selectUserProfile} from "../app/slice";
 import {useDispatch, useSelector} from "react-redux";
 import {setModalDefault} from "../app/slice";
 
-const Mypage = () => {
+const My = () => {
     const dispatch = useDispatch();
     const userProfile = useSelector(selectUserProfile);
 
@@ -53,4 +53,4 @@ const Mypage = () => {
         </>
     )
 }
-export default Mypage;
+export default My;

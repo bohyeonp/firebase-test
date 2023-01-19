@@ -28,10 +28,10 @@ const App = () => {
         console.log("onAuthStateChanged")
         onAuthStateChanged(auth, (userInfo) => {
             if(userInfo) {
-                console.log("logged in")
+                console.log("로그인 성공")
                 dispatch(setIsLoggedIn(true));
             } else {
-                console.log("logged out")
+                console.log("로그아웃 성공")
                 dispatch(setIsLoggedIn(false));
             }
             reProfileApi(userInfo?.uid);

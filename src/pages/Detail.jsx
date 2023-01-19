@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 
 const Detail = () => {
     useEffect(()=> {
-        console.log("CART PAGE")
+        console.log("상품 상세")
     },[]);
 
     return (

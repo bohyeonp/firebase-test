@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 
 const Cart = () => {
     useEffect(()=> {
-        console.log("CART PAGE")
+        console.log("장바구니")
     },[]);
 
     return (

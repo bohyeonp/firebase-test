@@ -4,7 +4,7 @@ import {Table, Tag, Space} from "antd";
 const CartList = ({showImg}) => {
 
     useEffect(()=> {
-        console.log("Cart List")
+        console.log("장바구니 리스트")
     },[]);
 
     const columns = [
