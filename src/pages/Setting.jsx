@@ -49,7 +49,7 @@ const Setting = () => {
                     key: '1',
                     children: <Form
                         {...layout}
-                        style={{maxWidth: '600px', margin: '0 auto', marginTop : "5%"}}
+                        style={{maxWidth: '600px', margin: '0 auto', marginTop : "3%"}}
                         name="normal_login"
                         className="login-form"
                         initialValues={{
@@ -114,7 +114,7 @@ const Setting = () => {
                 {
                     label: `회원 탈퇴`,
                     key: '2',
-                    children: <div style={{display: 'grid', justifyContent: 'center', marginTop : "5%"}}>
+                    children: <div style={{display: 'grid', justifyContent: 'center', marginTop : "3%"}}>
                         <b > * 계정 삭제는 영구적입니다.</b> <br/>
                         <p>그 동안 BOSO를 이용해주신 회원님께 진심으로 감사드립니다. <br/> 더욱 발전하는 BOSO가 되겠습니다. <br/> 아래 회원 탈퇴 버튼을 누르시면 탈퇴가 정상적으로 완료됩니다.</p> <br/>
                         <Button type="primary" onClick={() => deleteUserApi()}>회원 탈퇴</Button>
