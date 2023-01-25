@@ -150,7 +150,7 @@ const UploadPost = () => {
                                 label="description"
                                 rules={[{required: true}]}
                             >
-                                <TextArea style={{width : '300px'}} placeholder="상품 설명을 입력해주세요."/>
+                                <TextArea style={{width : '300px', height : '300px'}} placeholder="상품 설명을 입력해주세요."/>
                             </Form.Item>
                         </>
                     )
