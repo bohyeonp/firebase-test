@@ -96,7 +96,7 @@ export const reProfileApi = (userId) => {
     });
 };
 
-export const getPost = (params, callback) => {
+export const getPostApi = (params, callback) => {
     let imageList = [];
     const post = firestore.collection("post");
 
@@ -106,5 +106,18 @@ export const getPost = (params, callback) => {
         })
         store.dispatch(setImageList(imageList))
         callback("", true);
+    });
+};
+
+export const uploadPostApi = (values) => {
+    const userProfile = store.getState().user.userProfile;
+    const user = firestore.collection("user");
+    const post = firestore.collection("post");
+    const postData = [...userProfile.list.post, values]
+
+    user.doc(userProfile.uid).update({list : {...userProfile.list, post : [...postData]}}).then(() => {
+        store.dispatch(setModalDefault({show: true, type: "post-upload-success"}));
+        reProfileApi();
+        post.doc(values.id).set(values)
     });
 };
