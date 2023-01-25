@@ -7,7 +7,6 @@ import {useNavigate} from "react-router-dom";
 const contentStyle = {
     height: '550px',
     overflow : 'auto'
-
 };
 
 const imageStyle = {
