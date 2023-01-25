@@ -21,3 +21,7 @@ export const checkPhoneNumber = number => {
     const regPhone = /^01([0|1|6|7|9])(\d{4})(\d{4})$/;
     return regPhone.test(number);
 };
+
+export const comma = number => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+};
