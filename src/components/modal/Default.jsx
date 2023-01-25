@@ -43,6 +43,9 @@ const Default = () => {
         "profile-update-success" : {
             body : "프로필 업데이트에 성공했습니다."
         },
+        "post-upload-success" : {
+            body : "게시글 업로드에 성공했습니다."
+        },
         "edit-profile" : {
             title : "프로필 편집",
             body : (<EditProfile/>),
