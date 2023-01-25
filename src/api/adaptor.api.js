@@ -121,3 +121,11 @@ export const uploadPostApi = (values) => {
         post.doc(values.id).set(values)
     });
 };
+
+export const getAdDetailApi = (id, callback) => {
+    const post = firestore.collection("post");
+
+    return post.doc(id).get().then((doc) => {
+        callback("", doc.data());
+    });
+};
