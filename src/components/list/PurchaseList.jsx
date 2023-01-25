@@ -88,7 +88,7 @@ const PurchaseList = ({showImg}) => {
         },
     ];
     return (
-        <Table columns={
+        <Table style={{margin : '0 100px 0px 100px'}} columns={
             showImg ? columns : columns.filter(obj => obj.title !== 'Image')} dataSource={data} pagination={false}/>
     )
 };
