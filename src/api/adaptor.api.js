@@ -12,7 +12,12 @@ export const createUserWithEmailAndPasswordApi = (values) => {
             const userInfo = userCredential.user;
             user.doc(userInfo.uid).set({
                 ...values.user,
-                photoNum : "0"
+                photoNum : "0",
+                list : {
+                    cart : [],
+                    post : [],
+                    purchase : []
+                }
             });
         })
         .catch((error) => {
@@ -29,24 +34,28 @@ export const createUserWithEmailAndPasswordApi = (values) => {
 };
 
 export const deleteUserApi = () => {
-    const uid = store.getState().user.userProfile.uid;
+    const userProfile = store.getState().user.userProfile
     const user = firestore.collection("user");
+    const credential = EmailAuthProvider.credential(userProfile.email, userProfile.password);
 
     deleteUser(auth.currentUser).then(() => {
-        user.doc(uid).delete();
+        user.doc(userProfile.uid).delete();
     }).catch((error) => {
-        store.dispatch(setModalDefault({show: true, type: "delete-fail"}));
+        reauthenticateWithCredential(auth.currentUser, credential).then(() => {
+            deleteUserApi()
+        }).catch((error) => {
+            store.dispatch(setModalDefault({show: true, type: "delete-fail"}));
+        });
     });
 };
 
 export const updatePasswordApi = (password) => {
     const userProfile = store.getState().user.userProfile
-    const uid = store.getState().user.userProfile.uid;
     const user = firestore.collection("user");
     const credential = EmailAuthProvider.credential(userProfile.email, password.current);
 
     updatePassword(auth.currentUser, password.new).then(() => {
-        user.doc(uid).update({ password : password.new});
+        user.doc(userProfile.uid).update({ password : password.new});
         store.dispatch(setModalDefault({show: true, type: "pw-update-success"}));
     }).catch((error) => {
         reauthenticateWithCredential(auth.currentUser, credential).then(() => {
