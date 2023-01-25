@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getPost} from "../api/adaptor.api";
+import {getPostApi} from "../api/adaptor.api";
 import {selectImageList} from "../app/slice";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -25,7 +25,7 @@ const Main = () => {
 
     useEffect(()=> {
         console.log("메인")
-        getPost({}, (err, res) => {
+        getPostApi({}, (err, res) => {
             res && setLoading(true)
         })
     },[]);
