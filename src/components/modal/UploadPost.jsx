@@ -1,11 +1,13 @@
 import React, {useState}from 'react';
 import {Form, Input, Button, Radio, InputNumber, Upload, message} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
+import {uploadPostApi} from "../../api/adaptor.api";
 const { TextArea } = Input;
 
 const UploadPost = () => {
     const [cat, setCat] = useState("animal");
     const [imageUrl, setImageUrl] = useState("");
+
     const layout = {
         labelCol: {
             span: 6,
@@ -23,7 +25,11 @@ const UploadPost = () => {
     };
 
     const onFinish = (values) => {
-        console.log(values)
+        uploadPostApi({
+            url : imageUrl,
+            cat : values.post.cat,
+            id : Math.random().toString(36).substr(2, 16)
+        })
     };
 
     const onChangePrice = (value) => {
@@ -50,7 +56,6 @@ const UploadPost = () => {
 
     const handleChange = (info) => {
         getBase64(info.file.originFileObj, (url) => {
-            console.log(url)
             setImageUrl(url);
         });
     };
@@ -81,7 +86,6 @@ const UploadPost = () => {
                         listType="picture-card"
                         className="avatar-uploader"
                         showUploadList={false}
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
                     >
@@ -96,7 +100,7 @@ const UploadPost = () => {
                                     alt="avatar"
                                     style={{
                                         width: '100%',
-                                        height: '100%'
+                                        height: '100%',
                                     }}
                                 />
                         }
