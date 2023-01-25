@@ -25,11 +25,14 @@ const UploadPost = () => {
     };
 
     const onFinish = (values) => {
-        uploadPostApi({
+        const ad = values.ad
+        let postData = {
             url : imageUrl,
             cat : values.post.cat,
             id : Math.random().toString(36).substr(2, 16)
-        })
+        }
+       if(values.post.cat === "ad") postData = {...postData, ad}
+       uploadPostApi(postData);
     };
 
     const onChangePrice = (value) => {
