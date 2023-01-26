@@ -27,7 +27,7 @@ const UploadPost = () => {
     const onFinish = (values) => {
         const ad = values.ad
         let postData = {
-            url : imageUrl,
+            url : values.post.url,
             cat : values.post.cat,
             id : Math.random().toString(36).substr(2, 16)
         }
@@ -78,11 +78,6 @@ const UploadPost = () => {
                 <Form.Item
                     name={['post', 'photo']}
                     label="Photo"
-                    rules={[
-                        {
-                            required: true,
-                        }
-                    ]}
                 >
                     <Upload
                         name="avatar"
@@ -109,6 +104,13 @@ const UploadPost = () => {
                         }
 
                     </Upload>
+                </Form.Item>
+                <Form.Item
+                    name={['post', 'url']}
+                    label="PhotoURL"
+                    rules={[{required: true}]}
+                >
+                    <Input style={{width : '300px'}} placeholder="이미지 URL을 입력해주세요."/>
                 </Form.Item>
                 <Form.Item
                     name={['post', 'cat']}
