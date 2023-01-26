@@ -33,10 +33,10 @@ const Detail = () => {
                 <Avatar shape="square" style={{marginBottom : '10px'}} size={250} src={adData.url}/>
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                     <span> {adData.ad?.title}</span>
-                    <span> {comma(adData.ad?.price)}</span>
+                    <span> ₩{comma(adData.ad?.price)}</span>
                     <div style={{width : '300px', backgroundColor : 'white', display: 'flex', margin : '20px 0px 20px 0px'}}>
                         <InputNumber  style={{ margin : '10px 20px 10px 20px'}} min={1} max={10} defaultValue={1} onChange={onChange}/>
-                        <span style={{ margin : '10px 20px 10px 20px'}}>{comma(adData.ad?.price * count)}</span>
+                        <span style={{ margin : '10px 20px 10px 20px'}}> ₩{comma(adData.ad?.price * count)}</span>
                         <ShoppingCartOutlined style={{ margin : '10px 20px 10px 20px', fontSize: '24px' }} />
                     </div>
                     <span dangerouslySetInnerHTML={{__html : adData.ad?.des}}/>
