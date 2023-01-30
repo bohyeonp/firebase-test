@@ -3,9 +3,11 @@ import {auth, firestore} from "../firebase/Firebase";
 import {setImageList, setModalDefault, setUserProfile} from "../app/slice";
 import {createUserWithEmailAndPassword, deleteUser, EmailAuthProvider, updatePassword, reauthenticateWithCredential} from "firebase/auth";
 
+const user = firestore.collection("user");
+const post = firestore.collection("post");
+
 export const createUserWithEmailAndPasswordApi = (values) => {
     const {email, password} = values.user;
-    const user = firestore.collection("user");
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -21,7 +23,6 @@ export const createUserWithEmailAndPasswordApi = (values) => {
             });
         })
         .catch((error) => {
-            console.error('이메일 가입시 에러 : ', error);
             switch(error.code){
                 case "auth/email-already-in-use":
                     store.dispatch(setModalDefault({show: true, type: "email-already-in-use"}));
@@ -34,8 +35,7 @@ export const createUserWithEmailAndPasswordApi = (values) => {
 };
 
 export const deleteUserApi = () => {
-    const userProfile = store.getState().user.userProfile
-    const user = firestore.collection("user");
+    const userProfile = store.getState().user.userProfile;
     const credential = EmailAuthProvider.credential(userProfile.email, userProfile.password);
 
     deleteUser(auth.currentUser).then(() => {
@@ -50,8 +50,7 @@ export const deleteUserApi = () => {
 };
 
 export const updatePasswordApi = (password) => {
-    const userProfile = store.getState().user.userProfile
-    const user = firestore.collection("user");
+    const userProfile = store.getState().user.userProfile;
     const credential = EmailAuthProvider.credential(userProfile.email, password.current);
 
     updatePassword(auth.currentUser, password.new).then(() => {
@@ -69,7 +68,6 @@ export const updatePasswordApi = (password) => {
 export const updateProfileApi = (values) => {
     const {name, email, photo, birth, phone} = values.user;
     const uid = store.getState().user.userProfile.uid;
-    const user = firestore.collection("user");
 
     user.doc(uid).update({
         name : name,
@@ -84,21 +82,15 @@ export const updateProfileApi = (values) => {
 };
 
 export const reProfileApi = (userId) => {
-    const user = firestore.collection("user");
     const uid = userId || store.getState().user.userProfile.uid;
 
-    user.get().then((doc) => {
-        doc.forEach((doc2)=>{
-            if(doc2.id === uid){
-                store.dispatch(setUserProfile({...doc2.data(), ...{uid : uid}}));
-            }
-        })
-    });
+    user.doc(uid).get().then((doc)=> {
+        store.dispatch(setUserProfile({...doc.data(), ...{uid : uid}}));
+    })
 };
 
 export const getPostApi = (params, callback) => {
     let imageList = [];
-    const post = firestore.collection("post");
 
     return post.get().then((doc) => {
         doc.forEach((docs)=>{
@@ -111,8 +103,6 @@ export const getPostApi = (params, callback) => {
 
 export const uploadPostApi = (values) => {
     const userProfile = store.getState().user.userProfile;
-    const user = firestore.collection("user");
-    const post = firestore.collection("post");
     const postData = [...userProfile.list.post, values]
 
     user.doc(userProfile.uid).update({list : {...userProfile.list, post : [...postData]}}).then(() => {
@@ -123,8 +113,6 @@ export const uploadPostApi = (values) => {
 };
 
 export const getAdDetailApi = (id, callback) => {
-    const post = firestore.collection("post");
-
     return post.doc(id).get().then((doc) => {
         callback("", doc.data());
     });
