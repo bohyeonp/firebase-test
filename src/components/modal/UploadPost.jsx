@@ -1,6 +1,5 @@
 import React, {useState}from 'react';
 import {Form, Input, Button, Radio, InputNumber, Upload, message} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
 import {uploadPostApi} from "../../api/adaptor.api";
 const { TextArea } = Input;
 
@@ -39,6 +38,12 @@ const UploadPost = () => {
         console.log('changed', value);
     };
 
+    const onChange = (e) => {
+        console.log('Change:', e.target.value);
+        setImageUrl(e.target.value)
+    }
+
+    /* 현재 미사용 */
     const getBase64 = (img, callback) => {
         const reader = new FileReader();
         reader.addEventListener('load', () => callback(reader.result));
@@ -62,6 +67,7 @@ const UploadPost = () => {
             setImageUrl(url);
         });
     };
+    /* 현재 미사용 */
 
     return (
         <>
@@ -77,7 +83,7 @@ const UploadPost = () => {
             >
                 <Form.Item
                     name={['post', 'photo']}
-                    label="Photo"
+                    label="Photo Preview"
                 >
                     <Upload
                         name="avatar"
@@ -86,12 +92,18 @@ const UploadPost = () => {
                         showUploadList={false}
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
+                        disabled={true}
                     >
                         {
                             imageUrl === ""
                                 ? <div>
-                                    <PlusOutlined style={{marginTop: '23%'}}/>
-                                    <div style={{ marginTop: 8 }}>UPLOAD</div>
+                                    <img src={"https://www.dummyimage.com/305x305/f7f7f7/aba8ab.png&text=+Preview"}
+                                         alt="preview"
+                                         style={{
+                                             width: '100%',
+                                             height: '100%',
+                                         }}
+                                    />
                                 </div>
                                 : <img
                                     src={imageUrl}
@@ -99,6 +111,9 @@ const UploadPost = () => {
                                     style={{
                                         width: '100%',
                                         height: '100%',
+                                    }}
+                                    onError={(e)=> {
+                                        e.target.src = "https://www.dummyimage.com/305x305/f7f7f7/aba8ab.png&text=+Preview"
                                     }}
                                 />
                         }
@@ -109,6 +124,7 @@ const UploadPost = () => {
                     name={['post', 'url']}
                     label="PhotoURL"
                     rules={[{required: true}]}
+                    onChange={onChange}
                 >
                     <Input style={{width : '300px'}} placeholder="이미지 URL을 입력해주세요."/>
                 </Form.Item>
