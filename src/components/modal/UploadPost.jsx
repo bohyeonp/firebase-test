@@ -39,7 +39,6 @@ const UploadPost = () => {
     };
 
     const onChange = (e) => {
-        console.log('Change:', e.target.value);
         setImageUrl(e.target.value)
     }
 
@@ -67,6 +66,13 @@ const UploadPost = () => {
             setImageUrl(url);
         });
     };
+    const  normFile = ( e: any ) => {
+        console . log ( 'Upload event:' , e);
+        if ( Array . isArray (e)) {
+            return e;
+        }
+        return e && e.fileList ;
+    };
     /* 현재 미사용 */
 
     return (
@@ -84,6 +90,8 @@ const UploadPost = () => {
                 <Form.Item
                     name={['post', 'photo']}
                     label="Photo Preview"
+                    valuePropName = "fileList"
+                    getValueFromEvent = {normFile}
                 >
                     <Upload
                         name="avatar"
