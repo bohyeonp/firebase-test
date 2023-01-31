@@ -3,6 +3,7 @@ import {getPostApi} from "../api/adaptor.api";
 import {selectImageList} from "../app/slice";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {Button} from "antd";
 import {
     LikeOutlined,
     DislikeOutlined,
@@ -32,7 +33,7 @@ const imageStyle = {
 };
 
 const buttonStyle = {
-    marginLeft : '5%',
+    marginLeft : '3%',
     fontSize : '20px'
 };
 
@@ -69,9 +70,9 @@ const Main = () => {
                                     }}
                                 />
                                 <div style={buttonStyle}>
-                                    <LikeOutlined style={{ marginRight : '30px'}}/>
-                                    <DislikeOutlined style={{ marginRight : '30px'}}/>
-                                    <HeartOutlined />
+                                    <Button shape="circle" icon={<LikeOutlined />} style={{ marginRight : '20px'}} />
+                                    <Button shape="circle" icon={<DislikeOutlined />} style={{ marginRight : '20px'}} />
+                                    <Button shape="circle" icon={<HeartOutlined />} />
                                 </div>
                             </div>
                         ))}
