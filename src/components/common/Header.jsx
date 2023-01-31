@@ -34,8 +34,8 @@ function HeaderC() {
                     <Space wrap>
                         <Button
                             type="text"
-                            icon={<SettingOutlined style={{ color: '#fff', fontSize: '24px' }} />}
-                            onClick={() => navigate('/setting')}
+                            icon={<ShoppingCartOutlined style={{ color: '#fff', fontSize: '24px' }} />}
+                            onClick={() => navigate('/cart')}
                         />
                         <Button
                             type="text"
@@ -44,8 +44,8 @@ function HeaderC() {
                         />
                         <Button
                             type="text"
-                            icon={<ShoppingCartOutlined style={{ color: '#fff', fontSize: '24px' }} />}
-                            onClick={() => navigate('/cart')}
+                            icon={<SettingOutlined style={{ color: '#fff', fontSize: '24px' }} />}
+                            onClick={() => navigate('/setting')}
                         />
                         <Button
                             type="text"
