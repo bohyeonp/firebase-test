@@ -17,7 +17,8 @@ const uploadStyle = {
     overflow: 'hidden',
     backgroundColor : '#fefefe',
     borderRadius: '20px',
-    textAlign: 'center'
+    textAlign: 'center',
+    position : 'relative'
 };
 
 const imageStyle = {
@@ -26,6 +27,13 @@ const imageStyle = {
     objectFit:'cover',
     overflow: 'hidden',
     borderRadius: '20px'
+};
+
+const adIconStyle = {
+    width : '25px',
+    height : '25px',
+    position: 'absolute',
+    margin: '10px'
 };
 
 const PostList = () => {
@@ -57,6 +65,12 @@ const PostList = () => {
                             </div>
                             {userProfile.list?.post.map((item, index) => (
                                 <div key={index} style={uploadStyle}>
+                                    { item.cat === "ad"
+                                        && <img
+                                            src={require("../../assets/images/ad_icon.png")}
+                                            style={adIconStyle}
+                                            alt=""
+                                        />}
                                     <img
                                         className={ item.cat === "ad" ? 'image_list' : ''}
                                         key={index}
