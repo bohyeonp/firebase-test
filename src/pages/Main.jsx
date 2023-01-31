@@ -3,18 +3,37 @@ import {getPostApi} from "../api/adaptor.api";
 import {selectImageList} from "../app/slice";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {
+    LikeOutlined,
+    DislikeOutlined,
+    HeartOutlined
+} from '@ant-design/icons';
+
+
+const contentWrapStyle = {
+    height: '550px',
+    overflow : 'auto',
+    display : 'flex',
+    flexWrap: 'wrap'
+};
 
 const contentStyle = {
-    height: '550px',
-    overflow : 'auto'
+    flex: '1 1 50%',
+    width : '70%',
+    height : '90%'
 };
 
 const imageStyle = {
-    width:'20%',
-    height:'45%',
+    width : '70%',
+    height : '80%',
     objectFit:'cover',
+    borderRadius: '20px',
     margin : '20px',
-    borderRadius: '20px'
+};
+
+const buttonStyle = {
+    marginLeft : '5%',
+    fontSize : '20px'
 };
 
 const Main = () => {
@@ -31,13 +50,14 @@ const Main = () => {
 
     return (
         loading && <div style={{
-            marginLeft : "8%",
+            marginLeft : '12%',
             fontSize: '40px'}}
         >
             {
                 imageList?.length === 0 ? "포스트를 공유해주세요" : (
-                    <div  style={contentStyle}>
+                    <div style={contentWrapStyle}>
                         {imageList.map((item, index) => (
+                            <div key={index} style={contentStyle}>
                                 <img
                                     className={ item.cat === "ad" ? 'image_list' : ''}
                                     key={index}
@@ -48,6 +68,12 @@ const Main = () => {
                                         item.cat === "ad" && navigate(`/detail/${item.id}`)
                                     }}
                                 />
+                                <div style={buttonStyle}>
+                                    <LikeOutlined style={{ marginRight : '30px'}}/>
+                                    <DislikeOutlined style={{ marginRight : '30px'}}/>
+                                    <HeartOutlined />
+                                </div>
+                            </div>
                         ))}
                     </div>
                 )
