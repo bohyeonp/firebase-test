@@ -154,14 +154,14 @@ const UploadPost = () => {
                         <>
                             <Form.Item
                                 name={['ad', 'title']}
-                                label="title"
+                                label="Title"
                                 rules={[{required: true}]}
                             >
                                 <Input style={{width : '300px'}} placeholder="상품명을 입력해주세요."/>
                             </Form.Item>
                             <Form.Item
                                 name={['ad', 'price']}
-                                label="price"
+                                label="Price"
                                 rules={[{required: true}]}
                             >
                                 <InputNumber
@@ -172,11 +172,18 @@ const UploadPost = () => {
                                 />
                             </Form.Item>
                             <Form.Item
-                                name={['ad', 'des']}
-                                label="description"
+                                name={['ad', 'stock']}
+                                label="Stock"
                                 rules={[{required: true}]}
                             >
-                                <TextArea style={{width : '300px'}} placeholder="상품 설명을 입력해주세요."/>
+                                <InputNumber min={1}  style={{width : '300px'}} placeholder="상품 재고를 입력해주세요."/>
+                            </Form.Item>
+                            <Form.Item
+                                name={['ad', 'des']}
+                                label="Description"
+                                rules={[{required: true}]}
+                            >
+                                <TextArea style={{width : '300px', height : '120px'}} placeholder="상품 설명을 입력해주세요."/>
                             </Form.Item>
                         </>
                     )
