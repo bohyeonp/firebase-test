@@ -169,6 +169,7 @@ const UploadPost = () => {
                                     formatter={(value) => `₩ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     onChange={onChangePrice}
                                     placeholder="상품 금액을 입력해주세요."
+                                    min={1}
                                 />
                             </Form.Item>
                             <Form.Item
