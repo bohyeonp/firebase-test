@@ -7,7 +7,8 @@ import {Button} from "antd";
 import {
     LikeOutlined,
     DislikeOutlined,
-    HeartOutlined
+    HeartOutlined,
+    DollarOutlined
 } from '@ant-design/icons';
 
 
@@ -21,7 +22,8 @@ const contentWrapStyle = {
 const contentStyle = {
     flex: '1 1 50%',
     width : '70%',
-    height : '90%'
+    height : '90%',
+    position : 'relative'
 };
 
 const imageStyle = {
@@ -35,6 +37,13 @@ const imageStyle = {
 const buttonStyle = {
     marginLeft : '3%',
     fontSize : '20px'
+};
+
+const adIconStyle = {
+    width : '25px',
+    height : '25px',
+    position: 'absolute',
+    margin: '30px'
 };
 
 const Main = () => {
@@ -51,7 +60,7 @@ const Main = () => {
 
     return (
         loading && <div style={{
-            marginLeft : '12%',
+            marginLeft : '13%',
             fontSize: '40px'}}
         >
             {
@@ -59,6 +68,12 @@ const Main = () => {
                     <div style={contentWrapStyle}>
                         {imageList.map((item, index) => (
                             <div key={index} style={contentStyle}>
+                                { item.cat === "ad"
+                                    && <img
+                                        src={require("../assets/images/ad_icon.png")}
+                                        style={adIconStyle}
+                                        alt=""
+                                    />}
                                 <img
                                     className={ item.cat === "ad" ? 'image_list' : ''}
                                     key={index}
