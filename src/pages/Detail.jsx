@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {getAdDetailApi} from "../api/adaptor.api";
 import {comma} from "../utils/utilCommon";
-import {Avatar, InputNumber} from "antd";
-import {ShoppingCartOutlined} from "@ant-design/icons";
+import {Avatar, Button, InputNumber} from "antd";
+import {LikeOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 
 const Detail = () => {
     const params = useParams();
@@ -35,9 +35,9 @@ const Detail = () => {
                     <span> {adData.ad?.title}</span>
                     <span> ₩{comma(adData.ad?.price)}</span>
                     <div style={{width : '300px', backgroundColor : 'white', display: 'flex', margin : '20px 0px 20px 0px'}}>
-                        <InputNumber  style={{ margin : '10px 20px 10px 20px'}} min={1} max={10} defaultValue={1} onChange={onChange}/>
-                        <span style={{ margin : '10px 20px 10px 20px'}}> ₩{comma(adData.ad?.price * count)}</span>
-                        <ShoppingCartOutlined style={{ margin : '10px 20px 10px 20px', fontSize: '24px' }} />
+                        <InputNumber  style={{ margin : '10px 20px 10px 20px'}} min={1} max={adData.ad?.stock} defaultValue={1} onChange={onChange}/>
+                        <span style={{ margin : '15px 20px 10px 20px'}}> ₩{comma(adData.ad?.price * count)}</span>
+                        <Button shape="circle" icon={<ShoppingCartOutlined />} style={{ margin : '10px 20px 10px 20px', fontSize: '24px' }} />
                     </div>
                     <span dangerouslySetInnerHTML={{__html : adData.ad?.des}}/>
                 </div>
