@@ -1,3 +1,5 @@
+# Boso React SNS
+
 ### Project setup
 
 ```
@@ -12,5 +14,3 @@ $ npm install
 # server with hot reload at localhost:3000 (Develop Server)
 $ npm start
 ```
-# Boso React SNS 
-
